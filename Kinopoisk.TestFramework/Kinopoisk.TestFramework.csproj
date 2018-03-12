@@ -58,16 +58,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drivers\Driver.cs" />
-    <Compile Include="Drivers\IBrowserFactory.cs" />
+    <Compile Include="Drivers\IDriver.cs" />
     <Compile Include="Filters\Step.cs" />
     <Compile Include="PageObjects\PageObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticConstants\FrameworkConstants.cs" />
     <Compile Include="Steps\BaseSteps.cs" />
     <Compile Include="TestCases\TestCase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

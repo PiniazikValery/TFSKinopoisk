@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace Kinopoisk.Test.TestCases
 {
+    [TestFixture]
+    [Parallelizable]
     class SP_TC1:TestCase
     {
         StartPageSteps UserAtStartPage { get; set; }

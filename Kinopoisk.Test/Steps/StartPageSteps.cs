@@ -1,13 +1,7 @@
 ﻿using Kinopoisk.Test.PageObjects;
+using Kinopoisk.TestFramework.Filters;
 using Kinopoisk.TestFramework.Steps;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Kinopoisk.Test.Steps
 {
@@ -15,10 +9,17 @@ namespace Kinopoisk.Test.Steps
     {
         public StartPage page { get; set; }
 
+        [Step]
         public void SearchFilm()
         {
             page.SendKeysToSearchLine();
             page.ClickSearchButton();           
-        }        
+        }
+
+        [Step]
+        public void ClickLoginButton()
+        {
+            page.ClickLogin();
+        }
     }
 }

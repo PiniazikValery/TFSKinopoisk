@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Kinopoisk.TestFramework.Drivers
 {
-    public interface IBrowserFactory
+    public interface IDriver
     {
         void InitBrowser(WebBrowsers browser);
         IWebDriver GetDriver { get; set; }
-        void LoadApplication(string url);
+        void GoToUrl(string url);
         void CloseDriver();
         void CloseAllDrivers();
     }

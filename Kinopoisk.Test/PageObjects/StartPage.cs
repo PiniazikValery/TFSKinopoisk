@@ -12,25 +12,25 @@ namespace Kinopoisk.Test.PageObjects
     public class StartPage:PageObject
     {        
         [FindsBy(How = How.Name, Using = "kp_query")]
-        private IWebElement SearchLine { get; set; }
+        IWebElement SearchLine { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id='partial_component__header']/div/header/div/div[2]/span[2]/form/span/input[1]")]
-        private IWebElement SearchButton { get; set; }
+        IWebElement SearchButton { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id='partial_component__header']//*/a[@data-reactid='17']")]
-        private IWebElement Login { get; set; }
+        IWebElement Login { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@class='auth__inner']//*/input[@name='login']")]
-        private IWebElement EmailInput { get; set; }
+        IWebElement EmailInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@class='auth__inner']//*/input[@name='password']")]
-        private IWebElement PasswordInput { get; set; }
+        IWebElement PasswordInput { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*/div[@class='auth__signin-mode']/button/span")]
-        private IWebElement LoginSubmit { get; set; }
+        IWebElement LoginSubmit { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@class='header-auth-partial-component']/a[@data-reactid]")]
-        private IWebElement LogOutButton { get; set; }
+        IWebElement LogOutButton { get; set; }
 
         public IWebElement GetLogOutButton()
         {

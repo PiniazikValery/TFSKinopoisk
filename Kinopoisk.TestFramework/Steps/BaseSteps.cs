@@ -1,5 +1,6 @@
 ﻿using Kinopoisk.TestFramework.Drivers;
 using Kinopoisk.TestFramework.PageObjects;
+using Kinopoisk.TestFramework.StaticConstants;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
@@ -12,39 +13,23 @@ using System.Threading.Tasks;
 namespace Kinopoisk.TestFramework.Steps
 {
     public abstract class BaseSteps
-    {
-        public string PageName { get; private set; }
+    {        
+        public PageObject WorkPage;
 
-        public Driver driver;
-
-        object LocalPage;
-
-        public void InitPageObjects()
-        {
-            var bindingFlags = BindingFlags.Instance |
-                   BindingFlags.NonPublic |
-                   BindingFlags.Public;
-            var test = GetType().GetFields(bindingFlags).Where(field => field.FieldType.IsSubclassOf(typeof(PageObject))).Count();
-            if (GetType().GetFields(bindingFlags).Where(field => field.FieldType.IsSubclassOf(typeof(PageObject))).Count() > 1)
+        public void InitPageObjects(Driver driver)
+        {           
+            var pageObjects = GetType().GetFields(FrameworkConstants.BindingFlags).Where(field => field.FieldType.IsSubclassOf(typeof(PageObject)));
+            if (pageObjects.Count() > 1)
             {
                 throw new Exception("Steps must have only one PageObject");
             }
-            foreach (var field in GetType().GetFields(bindingFlags))
+            foreach (var field in pageObjects)
             {
-                if (field.FieldType.IsSubclassOf(typeof(PageObject)))
-                {
-                    field.SetValue(this, Activator.CreateInstance(field.FieldType));
-                    ((PageObject)field.GetValue(this)).InitWebelements(driver);
-                    LocalPage = ((PageObject)field.GetValue(this));
-                    PageName = field.FieldType.Name;
-                    break;
-                }
+                field.SetValue(this, Activator.CreateInstance(field.FieldType));
+                WorkPage = (PageObject)field.GetValue(this);
+                WorkPage.InitWebelements(driver);                                
+                break;
             }
-        }
-        
-        public void WaitLoadingPage()
-        {
-            ((PageObject)LocalPage).WaitPageLoading();
-        }
+        }        
     }
 }

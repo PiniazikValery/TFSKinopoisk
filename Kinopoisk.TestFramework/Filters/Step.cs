@@ -1,11 +1,6 @@
 ﻿using Kinopoisk.TestFramework.Steps;
 using PostSharp.Aspects;
 using PostSharp.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kinopoisk.TestFramework.Filters
 {
@@ -14,7 +9,7 @@ namespace Kinopoisk.TestFramework.Filters
     {
         public override void OnEntry(MethodExecutionArgs args)
         {
-            ((BaseSteps)args.Instance).WaitLoadingPage();
+            ((BaseSteps)args.Instance).WorkPage.WaitPageLoading();
         }
 
         public override void OnSuccess(MethodExecutionArgs args)

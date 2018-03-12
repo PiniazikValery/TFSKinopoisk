@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Kinopoisk.TestFramework.StaticConstants;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
@@ -7,30 +8,27 @@ using System.Collections.Generic;
 
 namespace Kinopoisk.TestFramework.Drivers
 {
-    public class Driver:IBrowserFactory
+    public class Driver:IDriver
     {
-        public Driver(WebBrowsers browser, string startPage)
-        {
-            this.browser = browser;
-            this.startPage = startPage;
-            InitBrowser(browser);
-            LoadApplication(startPage);
-        }
-
-        private WebBrowsers browser;
-
-        private string startPage;
+        private WebBrowsers browser;        
 
         private Guid driverKey;
 
         private static readonly IDictionary<Guid, IWebDriver> Drivers = new Dictionary<Guid, IWebDriver>();
+
+        public Driver(WebBrowsers browser)
+        {
+            this.browser = browser;            
+            InitBrowser(browser);
+            LoadApplication();
+        }        
 
         public IWebDriver GetDriver
         {
             get
             {
                 if (Drivers[driverKey] == null)
-                    throw new NullReferenceException("The WebDriver browser instance was not initialized. You should first call the method InitBrowser.");
+                    throw new NullReferenceException("The WebDriver browser instance was not initialized. You should first call the method InitBrowser or create class by constructor.");
                 return Drivers[driverKey];
             }
             set
@@ -39,7 +37,12 @@ namespace Kinopoisk.TestFramework.Drivers
             }
         }
 
-        public void LoadApplication(string url)
+        private void LoadApplication()
+        {
+            GetDriver.Url = FrameworkConstants.StartPage;
+        }
+
+        public void GoToUrl(string url)
         {
             GetDriver.Url = url;
         }

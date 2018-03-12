@@ -1,19 +1,17 @@
 ﻿using Kinopoisk.TestFramework.Drivers;
+using Kinopoisk.TestFramework.StaticConstants;
 using Kinopoisk.TestFramework.Steps;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kinopoisk.TestFramework.TestCases
 {
     [TestFixture]
     public class TestCase
-    {
-        public Driver driver = new Driver(WebBrowsers.Chrome, "https://www.kinopoisk.ru/");
+    {        
+        public Driver driver = new Driver(WebBrowsers.Chrome);
         [OneTimeSetUp]
         public void BeforeAllTests()
         {                    
@@ -25,19 +23,13 @@ namespace Kinopoisk.TestFramework.TestCases
             driver.CloseDriver();
         }
         private void InitSteps()
-        {
-            var bindingFlags = BindingFlags.Instance |
-                 BindingFlags.NonPublic |
-                 BindingFlags.Public;
-            var testCaseFields = GetType().GetFields(bindingFlags);
+        {           
+            var testCaseFields = GetType().GetFields(FrameworkConstants.BindingFlags).Where(field=>field.FieldType.IsSubclassOf(FrameworkConstants.BaseStepsType));
             foreach (var field in testCaseFields)
             {
-                if (field.FieldType.IsSubclassOf(typeof(BaseSteps)))
-                {                    
-                    field.SetValue(this, Activator.CreateInstance(field.FieldType));
-                    ((BaseSteps)field.GetValue(this)).driver = driver;
-                    ((BaseSteps)field.GetValue(this)).InitPageObjects();
-                }
+                field.SetValue(this, Activator.CreateInstance(field.FieldType));
+                BaseSteps WorkSteps = (BaseSteps)field.GetValue(this);                
+                WorkSteps.InitPageObjects(driver);
             }
         }
     }
