@@ -22,7 +22,7 @@ namespace Kinopoisk.TestFramework.PageObjects
         {
             this.driver = driver;
             PageFactory.InitElements(driver.GetDriver, this);            
-            foreach (var field in GetType().GetFields(FrameworkConstants.BindingFlags).Where(fieldType => fieldType.FieldType.IsInstanceOfType(FrameworkConstants.WebElementType)))
+            foreach (var field in GetType().GetFields(FrameworkConstants.BindingFlags).Where(fieldType => fieldType.FieldType.Equals(FrameworkConstants.WebElementType)))
             {
                 WebElementsContainer.Add((IWebElement)field.GetValue(this));
             }

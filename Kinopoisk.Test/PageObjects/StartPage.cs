@@ -15,37 +15,7 @@ namespace Kinopoisk.Test.PageObjects
         IWebElement SearchLine { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//*[@id='partial_component__header']/div/header/div/div[2]/span[2]/form/span/input[1]")]
-        IWebElement SearchButton { get; set; }
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='partial_component__header']//*/a[@data-reactid='17']")]
-        IWebElement Login { get; set; }
-
-        [FindsBy(How = How.XPath, Using = "//*[@class='auth__inner']//*/input[@name='login']")]
-        IWebElement EmailInput { get; set; }
-
-        [FindsBy(How = How.XPath, Using = "//*[@class='auth__inner']//*/input[@name='password']")]
-        IWebElement PasswordInput { get; set; }
-
-        [FindsBy(How = How.XPath, Using = "//*/div[@class='auth__signin-mode']/button/span")]
-        IWebElement LoginSubmit { get; set; }
-
-        [FindsBy(How = How.XPath, Using = "//*[@class='header-auth-partial-component']/a[@data-reactid]")]
-        IWebElement LogOutButton { get; set; }
-
-        public IWebElement GetLogOutButton()
-        {
-            return LogOutButton;
-        }
-
-        public void ClickLogOutButton()
-        {
-            LogOutButton.Click();
-        }
-
-        public void ClickLogin()
-        {
-            Login.Click();
-        }
+        IWebElement SearchButton { get; set; }                        
 
         public void SendKeysToSearchLine()
         {

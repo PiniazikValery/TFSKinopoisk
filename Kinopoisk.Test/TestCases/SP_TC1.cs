@@ -1,11 +1,6 @@
 ﻿using Kinopoisk.Test.Steps;
 using Kinopoisk.TestFramework.TestCases;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kinopoisk.Test.TestCases
 {

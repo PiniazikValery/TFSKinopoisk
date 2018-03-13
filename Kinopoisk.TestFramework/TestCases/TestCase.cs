@@ -12,24 +12,26 @@ namespace Kinopoisk.TestFramework.TestCases
     public class TestCase
     {        
         public Driver driver = new Driver(WebBrowsers.Chrome);
+
         [OneTimeSetUp]
         public void BeforeAllTests()
         {                    
             InitSteps();
         }
+
         [OneTimeTearDown]
         public void AfterAllTests()
         {
             driver.CloseDriver();
         }
+
         private void InitSteps()
         {           
             var testCaseFields = GetType().GetFields(FrameworkConstants.BindingFlags).Where(field=>field.FieldType.IsSubclassOf(FrameworkConstants.BaseStepsType));
             foreach (var field in testCaseFields)
             {
                 field.SetValue(this, Activator.CreateInstance(field.FieldType));
-                BaseSteps WorkSteps = (BaseSteps)field.GetValue(this);                
-                WorkSteps.InitPageObjects(driver);
+                ((BaseSteps)field.GetValue(this)).InitPageObjects(driver);                
             }
         }
     }

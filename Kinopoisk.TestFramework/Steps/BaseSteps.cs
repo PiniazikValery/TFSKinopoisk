@@ -13,23 +13,20 @@ using System.Threading.Tasks;
 namespace Kinopoisk.TestFramework.Steps
 {
     public abstract class BaseSteps
-    {        
+    {
         public PageObject WorkPage;
 
         public void InitPageObjects(Driver driver)
-        {           
-            var pageObjects = GetType().GetFields(FrameworkConstants.BindingFlags).Where(field => field.FieldType.IsSubclassOf(typeof(PageObject)));
-            if (pageObjects.Count() > 1)
+        {
+            var pageObject = GetType().GetFields(FrameworkConstants.BindingFlags).Where(field => field.FieldType.IsSubclassOf(typeof(PageObject))).FirstOrDefault();
+
+            if (GetType().GetFields(FrameworkConstants.BindingFlags).Where(field => field.FieldType.IsSubclassOf(typeof(PageObject))).Count() > 1)
             {
                 throw new Exception("Steps must have only one PageObject");
             }
-            foreach (var field in pageObjects)
-            {
-                field.SetValue(this, Activator.CreateInstance(field.FieldType));
-                WorkPage = (PageObject)field.GetValue(this);
-                WorkPage.InitWebelements(driver);                                
-                break;
-            }
-        }        
+            pageObject.SetValue(this, Activator.CreateInstance(pageObject.FieldType));
+            WorkPage = (PageObject)pageObject.GetValue(this);
+            WorkPage.InitWebelements(driver);
+        }
     }
 }
